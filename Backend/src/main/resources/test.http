@@ -1,9 +1,0 @@
-POST http://localhost:8080/rooms
-Content-Type: application/json
-
-{
-  "roomNumber": "A101",
-  "roomType": "Deluxe",
-  "price": 50.0,
-  "status": "Available"
-}
