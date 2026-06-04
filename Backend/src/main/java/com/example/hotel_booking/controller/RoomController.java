@@ -2,6 +2,7 @@ package com.example.hotel_booking.controller;
 
 import com.example.hotel_booking.entity.Room;
 import com.example.hotel_booking.repository.RoomRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +19,13 @@ public class RoomController {
     @GetMapping
     public List<Room> getAllRooms() {
         return roomRepository.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Room getRoomById(@PathVariable Long id) {
+        return roomRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Room not found"));
     }
 
     @PostMapping
