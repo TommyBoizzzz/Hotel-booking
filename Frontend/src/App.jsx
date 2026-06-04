@@ -1,13 +1,26 @@
+<<<<<<< Updated upstream
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
+=======
+import { useState } from "react";
+import "./App.css";
+
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import HotelCard from "./components/HotelCard";
+import Footer from "./components/Footer";
+
+import { hotels } from "./data/hotels";
+>>>>>>> Stashed changes
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
+<<<<<<< Updated upstream
     <>
       <section id="center">
         <div className="hero">
@@ -29,6 +42,12 @@ function App() {
           Count is {count}
         </button>
       </section>
+=======
+    <div className="container">
+      <Navbar />
+
+      <Hero search={search} setSearch={setSearch} />
+>>>>>>> Stashed changes
 
       <div className="ticks"></div>
 
@@ -119,4 +138,8 @@ function App() {
   )
 }
 
+<<<<<<< Updated upstream
 export default App
+=======
+export default App;
+>>>>>>> Stashed changes
