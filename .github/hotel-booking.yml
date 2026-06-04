@@ -1,0 +1,66 @@
+name: Hotel Booking CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  build-backend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Build Spring Boot
+        working-directory: backend
+        run: mvn clean package -DskipTests
+
+
+  build-frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm install
+
+      - name: Build React
+        working-directory: frontend
+        run: npm run build
+
+
+  notify:
+    needs: [build-backend, build-frontend]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send Telegram Message
+        run: |
+          curl -X POST "https://api.telegram.org/botYOUR_NEW_BOT_TOKEN/sendMessage" \
+          -d chat_id="-1003923199516" \
+          -d message_thread_id="4" \
+          -d text="🚀 HOTEL BOOKING BUILD SUCCESS
+
+Repository: ${{ github.repository }}
+Branch: ${{ github.ref_name }}
+Author: ${{ github.actor }}
+Commit: ${{ github.event.head_commit.message }}
+
+https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
